@@ -8,7 +8,72 @@ image::./assets/images/ApacheKarafRag.png[alt=ApacheKarafRag,width=480,height=64
 
 Retrieval-Augmented Generation is an architectural approach to pulling in your data as context for large language models in order to improve relevancy.
 
+=== The Process
 
+The approach is broken into two stages; indexing and retrieval.
+
+==== Indexing
+
+During the indexing stage, documents are processed in a way to make them efficient to search during retrieval stage.
+
+image::./assets/images/KarafEmbedding.png[alt=KarafEmbedding,width=480,height=640,align="center"]
+
+The document embedding pipeline created is illustrated above, and implemented below:
+
+[,java.num]
+----
+//Document to read.
+Document document = loadDocument(toPath(documentPath), new TextDocumentParser());
+
+//Embedding Model
+EmbeddingModel embeddingModel = new OSGiSafeBgeSmallEnV15QuantizedEmbeddingModel();
+
+//Embedding Store
+EmbeddingStore<TextSegment> embeddingStore = new InMemoryEmbeddingStore<>();
+
+//How to consume our document
+EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
+    .documentSplitter(DocumentSplitters.recursive(300, 0))
+    .embeddingModel(embeddingModel)
+    .embeddingStore(embeddingStore)
+    .build();
+
+//Consume document
+ingestor.ingest(document);
+----
+
+==== Retrieval
+
+During Retrieval stage we handle the case of when a user submits a question that will be answered via our indexed documents.
+
+The process by the user query is matched to contents of the embedding store, and processed by the LLM are beyond the scope of this demo.
+
+[,java.num]
+----
+//
+QueryTransformer queryTransformer = new CompressingQueryTransformer(chatLanguageModel);
+
+//How to retrieve our embedded document
+ContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
+    .embeddingStore(embeddingStore)
+    .embeddingModel(embeddingModel)
+    .maxResults(2)
+    .minScore(0.6)
+    .build();
+
+//
+RetrievalAugmentor retrievalAugmentor = DefaultRetrievalAugmentor.builder()
+    .queryTransformer(queryTransformer)
+    .contentRetriever(contentRetriever)
+    .build();
+
+//Build our RAG KarafAssistant
+return AiServices.builder(KarafAssistant.class)
+    .chatLanguageModel(chatLanguageModel)
+    .retrievalAugmentor(retrievalAugmentor)
+    .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
+    .build();
+----
 
 == How are we going to use it in Apache Karaf?
 
@@ -69,19 +134,15 @@ Ran both Apache Karaf and LocalAI on the same host for successful demo run.
 
 == Future Work
 
-LangChain4J embedding jar, and its dependencies are not OSGi ready out-of-the-box, we can consider helping those libraries to make OSGi friendly releases.
-
-If its not possible to update those libraries to be more OSGi friendly, then we need to consider other JVMs to run the RAG service, then integrate to them.
-
-Its possible that https://github.com/apache/karaf-minho[Apache Karaf Minho] may provide a future Karaf style experience with better support for non-OSGi workflows.
-
-This demo project only starts to scratch the surface of RAG patterns, we intend to explore more of them in future posts.
+LangChain4J embedding jar, and its dependencies are not OSGi ready out-of-the-box, we can consider helping those libraries to make OSGi friendly releases. If its not possible to update those libraries to be more OSGi friendly, then we need to consider other JVMs to run the Embedding process, then integrate to the populated Embedding store. I will note that its is possible that https://github.com/apache/karaf-minho[Apache Karaf Minho] may provide a future Karaf style experience with better support for non-OSGi workflows.
 
 == Conclusions
 
-The included demo to this article is NOT production code. We implemented replacement classes where possible to allow Classpath resource access in an OSGi environment.
+The included demo to this article is NOT production code. We implemented replacement classes where possible to allow Classpath resource access in an OSGi environment for the embedding process.
 
 The concepts for ingesting a document, and setting up Retrieval-Augmented Generation architecture ARE worth investigating.
+
+We plan to delve into more samples of RAF architecture, using Apache projects.
 
 == About the Authors
 
