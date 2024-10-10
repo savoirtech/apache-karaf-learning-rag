@@ -50,6 +50,12 @@
             <groupId>org.apache.karaf.shell</groupId>
             <artifactId>org.apache.karaf.shell.core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.savoir.apache.karaf.rag</groupId>
+            <artifactId>agentServiceApi</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -76,7 +82,8 @@
                             org.apache.karaf.shell*;version="[4,5)",
                             org.osgi.framework,
                             org.osgi.service.cm,
-                            org.slf4j
+                            org.slf4j,
+                            *
                         </Import-Package>
                         <Karaf-Commands>com.savoir.apache.karaf.rag.command</Karaf-Commands>
                     </instructions>

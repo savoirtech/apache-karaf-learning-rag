@@ -48,8 +48,9 @@
     </properties>
 
     <modules>
-
+        <module>agentServiceImpl</module>
         <module>command</module>
+        <module>agentServiceApi</module>
     </modules>
 
     <pluginRepositories>

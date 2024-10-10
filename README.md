@@ -23,13 +23,16 @@ alt="HighLevelDiagram" />
 Build:
 
 ``` bash
- mvn install
+mvn install
 ```
 
 Installation:
 
 ``` bash
- install -s mvn:com.savoir.apache.karaf.rag/command
+feature:install scr
+install -s mvn:com.savoir.apache.karaf.rag/agentServiceApi
+install -s mvn:com.savoir.apache.karaf.rag/agentServiceImpl
+install -s mvn:com.savoir.apache.karaf.rag/command
 ```
 
 # Future Work

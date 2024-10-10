@@ -15,18 +15,28 @@
  */
 package com.savoir.apache.karaf.rag.command;
 
+import com.savoir.apache.karaf.rag.agent.service.api.AgentService;
+
 import org.apache.karaf.shell.api.action.Action;
+import org.apache.karaf.shell.api.action.Argument;
 import org.apache.karaf.shell.api.action.Command;
+import org.apache.karaf.shell.api.action.lifecycle.Reference;
 import org.apache.karaf.shell.api.action.lifecycle.Service;
 
 @Service
-@Command(scope = "agent", name = "question", description = "Ask our agent a question.")
+@Command(scope = "agent", name = "ask", description = "Ask our agent a question.")
 public class AgentCommand implements Action {
 
-        @Override
-        public Object execute() throws Exception {
-            System.out.println("Ask Agent a question.");
-            return null;
-        }
+    @Reference
+    private AgentService agentService;
+
+    @Argument(index = 0, name = "question", description = "User question", required = true, multiValued = false)
+    String question;
+
+    @Override
+    public Object execute() throws Exception {
+        System.out.println(agentService.getAnswer(question));
+        return null;
+    }
 
 }
