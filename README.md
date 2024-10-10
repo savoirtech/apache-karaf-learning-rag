@@ -112,6 +112,15 @@ return AiServices.builder(KarafAssistant.class)
     .build();
 ```
 
+## What are the OSGi Safe classes in the demo repo?
+
+A number of provided classes and their utilities make use of
+Classloading to get resources. Under an OSGi centric runtime such as
+Apache Karaf, this leads to runtime errors as the Bundle classpath is
+returned. To workaround these issues, we implemented replacement classes
+to avoid those concerns. We’ll note that most of the issues found were
+in regard to Embedding libraries.
+
 # Build and run the demo
 
 For our demo you’ll need to source Java 11 or above.
