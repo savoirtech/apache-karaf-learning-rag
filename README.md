@@ -13,13 +13,20 @@ relevancy.
 
 # How are we going to use it in Apache Karaf?
 
+The [LangChain4j
+community](https://github.com/langchain4j/langchain4j-examples/blob/main/rag-examples/src/main/java/_3_advanced/_01_Advanced_RAG_with_Query_Compression_Example.java)
+has provided a simple introduction to this pattern, we will apply our
+learning from their sample into the basis of an Apache Karaf expert
+agent which users can ask questions from Apache Karaf’s console.
+
 <figure>
 <img src="./assets/images/HighLevelDiagram.png"
 alt="HighLevelDiagram" />
 </figure>
 
-What this will allow the user to do is ask our agent questions from the
-Apache Karaf console.
+Once we’re integrated LangChain4j RAG into a Karaf Assistant, and have
+it consume Apache Karaf’s user documentation, we’ll teat out its
+knowledge in conversation.
 
 <figure>
 <img src="./assets/images/KarafLocalAI-1.png"
@@ -84,7 +91,29 @@ run.
 
 # Future Work
 
+LangChain4J embedding jar, and its dependencies are not OSGi ready
+out-of-the-box, we can consider helping those libraries to make OSGi
+friendly releases.
+
+If its not possible to update those libraries to be more OSGi friendly,
+then we need to consider other JVMs to run the RAG service, then
+integrate to them.
+
+Its possible that [Apache Karaf
+Minho](https://github.com/apache/karaf-minho) may provide a future Karaf
+style experience with better support for non-OSGi workflows.
+
+This demo project only starts to scratch the surface of RAG patterns, we
+intend to explore more of them in future posts.
+
 # Conclusions
+
+The included demo to this article is NOT production code. We implemented
+replacement classes where possible to allow Classpath resource access in
+an OSGi environment.
+
+The concepts for ingesting a document, and setting up
+Retrieval-Augmented Generation architecture ARE worth investigating.
 
 # About the Authors
 
