@@ -20,7 +20,7 @@ Once we're integrated LangChain4j RAG into a Karaf Assistant, and have it consum
 
 The approach is broken into two stages; indexing and retrieval.
 
-==== Indexing
+==== Stage 1: Indexing
 
 During the indexing stage, documents are processed in a way to make them efficient to search during retrieval stage.
 
@@ -50,7 +50,7 @@ EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
 ingestor.ingest(document);
 ----
 
-==== Retrieval
+==== Stage 2: Retrieval
 
 During Retrieval stage we handle the case of when a user submits a question that will be answered via our indexed documents.
 
@@ -58,9 +58,15 @@ image::./assets/images/Retrieval.png[alt=Retrieval,width=480,height=640,align="c
 
 The above diagram illustrates the general pipeline a query takes towards being matched to appropriate segments for LLM processing.
 
+Below we implement query compression, we use this technique when we expect queries to refer back to earlier parts of a conversation.
+
+ie. "How do we install a WAR to Karaf?", then "How do we uninstall it?" -- "it" being the WAR.
+
+The process sees the query, and relevant segments being passed to the LLM as a single query.
+
 [,java.num]
 ----
-//Compressing
+//Query Compression
 QueryTransformer queryTransformer = new CompressingQueryTransformer(chatLanguageModel);
 
 //How to retrieve our embedded document
@@ -71,7 +77,7 @@ ContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
     .minScore(0.6)
     .build();
 
-//
+//Query Transformer for given Chat Model and Embedding Store combine to perform Retrieval Augmentation.
 RetrievalAugmentor retrievalAugmentor = DefaultRetrievalAugmentor.builder()
     .queryTransformer(queryTransformer)
     .contentRetriever(contentRetriever)
