@@ -53,11 +53,15 @@ ingestor.ingest(document);
 During Retrieval stage we handle the case of when a user submits a
 question that will be answered via our indexed documents.
 
-The process by the user query is matched to contents of the embedding
-store, and processed by the LLM are beyond the scope of this demo.
+<figure>
+<img src="./assets/images/Retrieval.png" alt="Retrieval" />
+</figure>
+
+The above diagram illustrates the general pipeline a query takes towards
+being matched to appropriate segments for LLM processing.
 
 ``` java.num
-//
+//Compressing
 QueryTransformer queryTransformer = new CompressingQueryTransformer(chatLanguageModel);
 
 //How to retrieve our embedded document
