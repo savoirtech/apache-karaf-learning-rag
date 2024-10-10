@@ -137,6 +137,8 @@ Ran both Apache Karaf and LocalAI on the same host for successful demo run.
 
 === The Result:
 
+Once LocalAI is up and running (this can take a few minutes from start), our Agent command can start using our LLM to answer questions about Apache Karaf.
+
 image::./assets/images/KarafLocalAI-1.png[alt=KarafLocalAI-1.png,width=480,height=640,align="center"]
 image::./assets/images/KarafLocalAI-2.png[alt=KarafLocalAI-2.png,width=480,height=640,align="center"]
 image::./assets/images/KarafLocalAI-3.png[alt=KarafLocalAI-3.png,width=480,height=640,align="center"]
