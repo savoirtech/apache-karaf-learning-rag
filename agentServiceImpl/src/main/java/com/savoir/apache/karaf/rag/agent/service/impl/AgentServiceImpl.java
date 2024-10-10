@@ -85,7 +85,7 @@ public class AgentServiceImpl implements AgentService {
 
         ChatLanguageModel chatLanguageModel = LocalAiChatModel.builder()
                 .baseUrl("http://localhost:8080")
-                .modelName("bert-embeddings")
+                .modelName("gpt-4")
                 .maxRetries(3)
                 .temperature(0.0)
                 .maxTokens(3)
