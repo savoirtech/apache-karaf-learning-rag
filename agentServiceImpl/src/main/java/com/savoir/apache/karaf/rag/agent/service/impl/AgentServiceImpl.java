@@ -84,7 +84,7 @@ public class AgentServiceImpl implements AgentService {
         ingestor.ingest(document);
 
         ChatLanguageModel chatLanguageModel = LocalAiChatModel.builder()
-                .baseUrl("http://192.168.50.28:8080")
+                .baseUrl("http://localhost:8080")
                 .modelName("bert-embeddings")
                 .maxRetries(3)
                 .temperature(0.0)
