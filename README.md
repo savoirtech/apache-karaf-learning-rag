@@ -32,7 +32,7 @@ knowledge in conversation.
 
 The approach is broken into two stages; indexing and retrieval.
 
-### Indexing
+### Stage 1: Indexing
 
 During the indexing stage, documents are processed in a way to make them
 efficient to search during retrieval stage.
@@ -65,7 +65,7 @@ EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor.builder()
 ingestor.ingest(document);
 ```
 
-### Retrieval
+### Stage 2: Retrieval
 
 During Retrieval stage we handle the case of when a user submits a
 question that will be answered via our indexed documents.
@@ -77,8 +77,17 @@ question that will be answered via our indexed documents.
 The above diagram illustrates the general pipeline a query takes towards
 being matched to appropriate segments for LLM processing.
 
+Below we implement query compression, we use this technique when we
+expect queries to refer back to earlier parts of a conversation.
+
+ie. "How do we install a WAR to Karaf?", then "How do we uninstall
+it?" — "it" being the WAR.
+
+The process sees the query, and relevant segments being passed to the
+LLM as a single query.
+
 ``` java.num
-//Compressing
+//Query Compression
 QueryTransformer queryTransformer = new CompressingQueryTransformer(chatLanguageModel);
 
 //How to retrieve our embedded document
@@ -89,7 +98,7 @@ ContentRetriever contentRetriever = EmbeddingStoreContentRetriever.builder()
     .minScore(0.6)
     .build();
 
-//
+//Query Transformer for given Chat Model and Embedding Store combine to perform Retrieval Augmentation.
 RetrievalAugmentor retrievalAugmentor = DefaultRetrievalAugmentor.builder()
     .queryTransformer(queryTransformer)
     .contentRetriever(contentRetriever)
@@ -102,23 +111,6 @@ return AiServices.builder(KarafAssistant.class)
     .chatMemory(MessageWindowChatMemory.withMaxMessages(10))
     .build();
 ```
-
-# How are we going to use it in Apache Karaf?
-
-The [LangChain4j
-community](https://github.com/langchain4j/langchain4j-examples/blob/main/rag-examples/src/main/java/_3_advanced/_01_Advanced_RAG_with_Query_Compression_Example.java)
-has provided a simple introduction to this pattern, we will apply our
-learning from their sample into the basis of an Apache Karaf expert
-agent which users can ask questions from Apache Karaf’s console.
-
-<figure>
-<img src="./assets/images/HighLevelDiagram.png"
-alt="HighLevelDiagram" />
-</figure>
-
-Once we’re integrated LangChain4j RAG into a Karaf Assistant, and have
-it consume Apache Karaf’s user documentation, we’ll teat out its
-knowledge in conversation.
 
 # Build and run the demo
 
@@ -167,6 +159,10 @@ Ran both Apache Karaf and LocalAI on the same host for successful demo
 run.
 
 ## The Result:
+
+Once LocalAI is up and running (this can take a few minutes from start),
+our Agent command can start using our LLM to answer questions about
+Apache Karaf.
 
 <figure>
 <img src="./assets/images/KarafLocalAI-1.png"
