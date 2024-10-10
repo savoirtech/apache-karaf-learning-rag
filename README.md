@@ -11,6 +11,23 @@ Retrieval-Augmented Generation is an architectural approach to pulling
 in your data as context for large language models in order to improve
 relevancy.
 
+# How are we going to use it in Apache Karaf?
+
+The [LangChain4j
+community](https://github.com/langchain4j/langchain4j-examples/blob/main/rag-examples/src/main/java/_3_advanced/_01_Advanced_RAG_with_Query_Compression_Example.java)
+has provided a simple introduction to this pattern, we will apply our
+learning from their sample into the basis of an Apache Karaf expert
+agent which users can ask questions from Apache Karaf’s console.
+
+<figure>
+<img src="./assets/images/HighLevelDiagram.png"
+alt="HighLevelDiagram" />
+</figure>
+
+Once we’re integrated LangChain4j RAG into a Karaf Assistant, and have
+it consume Apache Karaf’s user documentation, we’ll teat out its
+knowledge in conversation.
+
 ## The Process
 
 The approach is broken into two stages; indexing and retrieval.
@@ -103,21 +120,6 @@ Once we’re integrated LangChain4j RAG into a Karaf Assistant, and have
 it consume Apache Karaf’s user documentation, we’ll teat out its
 knowledge in conversation.
 
-<figure>
-<img src="./assets/images/KarafLocalAI-1.png"
-alt="KarafLocalAI-1.png" />
-</figure>
-
-<figure>
-<img src="./assets/images/KarafLocalAI-2.png"
-alt="KarafLocalAI-2.png" />
-</figure>
-
-<figure>
-<img src="./assets/images/KarafLocalAI-3.png"
-alt="KarafLocalAI-3.png" />
-</figure>
-
 # Build and run the demo
 
 For our demo you’ll need to source Java 11 or above.
@@ -163,6 +165,23 @@ Apple Silicon.
 
 Ran both Apache Karaf and LocalAI on the same host for successful demo
 run.
+
+## The Result:
+
+<figure>
+<img src="./assets/images/KarafLocalAI-1.png"
+alt="KarafLocalAI-1.png" />
+</figure>
+
+<figure>
+<img src="./assets/images/KarafLocalAI-2.png"
+alt="KarafLocalAI-2.png" />
+</figure>
+
+<figure>
+<img src="./assets/images/KarafLocalAI-3.png"
+alt="KarafLocalAI-3.png" />
+</figure>
 
 # Future Work
 

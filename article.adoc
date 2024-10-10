@@ -8,6 +8,14 @@ image::./assets/images/ApacheKarafRag.png[alt=ApacheKarafRag,width=480,height=64
 
 Retrieval-Augmented Generation is an architectural approach to pulling in your data as context for large language models in order to improve relevancy.
 
+== How are we going to use it in Apache Karaf?
+
+The https://github.com/langchain4j/langchain4j-examples/blob/main/rag-examples/src/main/java/_3_advanced/_01_Advanced_RAG_with_Query_Compression_Example.java[LangChain4j community] has provided a simple introduction to this pattern, we will apply our learning from their sample into the basis of an Apache Karaf expert agent which users can ask questions from Apache Karaf's console.
+
+image::./assets/images/HighLevelDiagram.png[alt=HighLevelDiagram,width=480,height=640,align="center"]
+
+Once we're integrated LangChain4j RAG into a Karaf Assistant, and have it consume Apache Karaf's user documentation, we'll teat out its knowledge in conversation.
+
 === The Process
 
 The approach is broken into two stages; indexing and retrieval.
@@ -85,11 +93,6 @@ image::./assets/images/HighLevelDiagram.png[alt=HighLevelDiagram,width=480,heigh
 
 Once we're integrated LangChain4j RAG into a Karaf Assistant, and have it consume Apache Karaf's user documentation, we'll teat out its knowledge in conversation.
 
-image::./assets/images/KarafLocalAI-1.png[alt=KarafLocalAI-1.png,width=480,height=640,align="center"]
-image::./assets/images/KarafLocalAI-2.png[alt=KarafLocalAI-2.png,width=480,height=640,align="center"]
-image::./assets/images/KarafLocalAI-3.png[alt=KarafLocalAI-3.png,width=480,height=640,align="center"]
-
-
 == Build and run the demo
 
 For our demo you'll need to source Java 11 or above.
@@ -133,6 +136,13 @@ Note:
 Error gRPC service was encountered when running LocalAI docker image on Apple Silicon.
 
 Ran both Apache Karaf and LocalAI on the same host for successful demo run.
+
+=== The Result:
+
+image::./assets/images/KarafLocalAI-1.png[alt=KarafLocalAI-1.png,width=480,height=640,align="center"]
+image::./assets/images/KarafLocalAI-2.png[alt=KarafLocalAI-2.png,width=480,height=640,align="center"]
+image::./assets/images/KarafLocalAI-3.png[alt=KarafLocalAI-3.png,width=480,height=640,align="center"]
+
 
 == Future Work
 
