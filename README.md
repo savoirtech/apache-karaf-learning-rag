@@ -25,7 +25,7 @@ alt="HighLevelDiagram" />
 </figure>
 
 Once we’re integrated LangChain4j RAG into a Karaf Assistant, and have
-it consume Apache Karaf’s user documentation, we’ll teat out its
+it consume Apache Karaf’s user documentation, we’ll test out its
 knowledge in conversation.
 
 ## The Process
