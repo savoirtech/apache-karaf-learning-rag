@@ -91,14 +91,6 @@ return AiServices.builder(KarafAssistant.class)
     .build();
 ----
 
-== How are we going to use it in Apache Karaf?
-
-The https://github.com/langchain4j/langchain4j-examples/blob/main/rag-examples/src/main/java/_3_advanced/_01_Advanced_RAG_with_Query_Compression_Example.java[LangChain4j community] has provided a simple introduction to this pattern, we will apply our learning from their sample into the basis of an Apache Karaf expert agent which users can ask questions from Apache Karaf's console.
-
-image::./assets/images/HighLevelDiagram.png[alt=HighLevelDiagram,width=480,height=640,align="center"]
-
-Once we're integrated LangChain4j RAG into a Karaf Assistant, and have it consume Apache Karaf's user documentation, we'll teat out its knowledge in conversation.
-
 == Build and run the demo
 
 For our demo you'll need to source Java 11 or above.
