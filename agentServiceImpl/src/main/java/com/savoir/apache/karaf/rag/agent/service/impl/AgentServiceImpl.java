@@ -88,7 +88,7 @@ public class AgentServiceImpl implements AgentService {
                 .modelName("gpt-4")
                 .maxRetries(3)
                 .temperature(0.0)
-                .maxTokens(3)
+                .maxTokens(500)
                 .logRequests(true)
                 .logResponses(true)
                 .build();
