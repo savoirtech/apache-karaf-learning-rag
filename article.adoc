@@ -12,6 +12,13 @@ Retrieval-Augmented Generation is an architectural approach to pulling in your d
 
 image::./assets/images/HighLevelDiagram.png[alt=HighLevelDiagram,width=480,height=640,align="center"]
 
+What this will allow the user to do is ask our agent questions from the Apache Karaf console.
+
+image::./assets/images/KarafLocalAI-1.png[alt=KarafLocalAI-1.png,width=480,height=640,align="center"]
+image::./assets/images/KarafLocalAI-2.png[alt=KarafLocalAI-2.png,width=480,height=640,align="center"]
+image::./assets/images/KarafLocalAI-3.png[alt=KarafLocalAI-3.png,width=480,height=640,align="center"]
+
+
 == Build and run the demo
 
 Build:
@@ -48,6 +55,8 @@ docker run --rm -d -p 8080:8080 --gpus all --name local-ai -ti localai/localai:l
 Note:
 
 Error gRPC service was encountered when running LocalAI docker image on Apple Silicon.
+
+Ran both Apache Karaf and LocalAI on the same host for successful demo run.
 
 == Future Work
 
