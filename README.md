@@ -38,13 +38,15 @@ alt="KarafLocalAI-3.png" />
 
 # Build and run the demo
 
+For our demo you’ll need to source Java 11 or above.
+
 Build:
 
 ``` bash
-mvn install
+mvn clean install
 ```
 
-Installation:
+Installation in Apache Karaf 4.4.6:
 
 ``` bash
 feature:install scr
@@ -61,6 +63,9 @@ install -s mvn:com.savoir.apache.karaf.rag/agentServiceApi
 install -s mvn:com.savoir.apache.karaf.rag/agentServiceImpl
 install -s mvn:com.savoir.apache.karaf.rag/command
 ```
+
+LocalAI will need to be running before it can process user requests. In
+our demo we use a docker image with support for NVidia GPU.
 
 Run LocalAI via Docker on Windows x86_64:
 
